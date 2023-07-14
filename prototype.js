@@ -24,6 +24,7 @@ function criaNovoItem() {
   const c = getNumeroAleatorio(4);
 
   arrayGrid[l][c] === 0? arrayGrid[l][c] = 2 : criaNovoItem();
+  
   imprimeGrid();
 }
 
