@@ -2,32 +2,53 @@ var arrayGrid = [[0,0,0,0],
                  [0,0,0,0],
                  [0,0,0,0],
                  [0,0,0,0]];
-imprimeGrid();
 
-const botaoTeste = document.querySelector(".botao-teste")
-botaoTeste.addEventListener('click', () => {
-    teste();
+const HTMLgrid = document.querySelector(".grid");
+genereteGrid();
+
+const testButton = document.querySelector(".test-button")
+testButton.addEventListener('click', () => {
+    test();
 })
 
-function imprimeGrid() {
+function genereteGrid() {
     const arrayGridConvertida = arrayGrid.join('<br>')
-    const HTMLgrid = document.querySelector(".grid");
+    
     HTMLgrid.innerHTML = arrayGridConvertida
 }
 
-function getNumeroAleatorio(totalDeNumeros) {
-  return Math.floor(Math.random() * totalDeNumeros);
+function getRandomNumber(length) {
+  return Math.floor(Math.random() * length);
 }
 
-function criaNovoItem() {
-  const l = getNumeroAleatorio(4);
-  const c = getNumeroAleatorio(4);
-
-  arrayGrid[l][c] === 0? arrayGrid[l][c] = 2 : criaNovoItem();
+function createNewItem() {
+  if(isGameOver()) 
+    return printGameOver();
   
-  imprimeGrid();
+
+  const rowIndex = getRandomNumber(4);
+  const columnIndex = getRandomNumber(4);
+  
+  arrayGrid[rowIndex][columnIndex] === 0? arrayGrid[rowIndex][columnIndex] = 2 : createNewItem()
+  genereteGrid();
+  
 }
 
-function teste() {
-    criaNovoItem();
+function test() {
+    createNewItem();
+}
+
+function isGameOver() {
+  let gameOver = false;
+  let zeroElementCounter = 0;
+  let nonZeroElementCounter = 0;
+  arrayGrid.forEach(row => row.forEach((column) => {
+    column === 0? zeroElementCounter++ : nonZeroElementCounter++;
+  }))
+  nonZeroElementCounter < 15? gameOver = false : gameOver = true;
+  return gameOver;
+}
+
+function printGameOver() {
+  HTMLgrid.innerHTML = "GAME OVER!"
 }
