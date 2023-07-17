@@ -24,7 +24,6 @@ function getRandomNumber(length) {
 function createNewItem() {
   if(isGameOver()) 
     return printGameOver();
-  
 
   const rowIndex = getRandomNumber(4);
   const columnIndex = getRandomNumber(4);
@@ -42,9 +41,11 @@ function isGameOver() {
   let gameOver = false;
   let zeroElementCounter = 0;
   let nonZeroElementCounter = 0;
+
   arrayGrid.forEach(row => row.forEach((column) => {
     column === 0? zeroElementCounter++ : nonZeroElementCounter++;
   }))
+  
   nonZeroElementCounter < 15? gameOver = false : gameOver = true;
   return gameOver;
 }
