@@ -80,18 +80,18 @@ function moveParaDireita() {
 }
 
 function efetuaSoma() { //ANOTACAO: aparentemente, o problema está sendo o "i" no for dessa função. Quando a linha 90 é executada, o "i" do for da linha 84 é transportado para o "i" do for dentro da função moveParaDireita, na linha 65. Uma possível forma de correção é alterar o nome de alguma das variáveis "i" para outra letra como "j" por exemplo.
-  let novoArray = moveParaDireita()
+  let newArray = moveParaDireita()
   for(j = arr.length - 1; j >= 0; j--) {
-    if(novoArray[j - 1] === novoArray[j]) {
-      novoArray[j] += novoArray[j - 1]
-      novoArray[j - 1] = 0
+    if(newArray[j - 1] === newArray[j]) {
+      newArray[j] += newArray[j - 1]
+      newArray[j - 1] = 0
       console.log('%cprototype.js line:84 j', 'color: #007acc;', j);
       
-      novoArray = moveParaDireita()
+      newArray = moveParaDireita()
       
     }
   }
-  return arr = novoArray
+  return arr = newArray
 }
 
 console.log("array ANTES: ", arr)
