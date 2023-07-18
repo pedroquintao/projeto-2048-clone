@@ -56,44 +56,50 @@
 
 // AREA DE TESTES
 
-var arr = [2,4,4,2];
 
-function moveParaDireita() {
-  
-  let newArray = new Array(arr.length)
-  
-  for(i = 0; i < newArray.length; i++){
-    newArray[i] = 0
-  }
+
+function moveParaDireita(arr) {
   
   let count = arr.length - 1
-  
-  for(i = arr.length - 1; i >= 0; i--){
+
+  for(i = arr.length - 2; i >= 0; i--){
     if(arr[i] !== 0) {
-      newArray[count] = arr[i]
+
+      arr[count] = arr[i]
+      // arr[i] = 0
       count--
     }
   }
-  
-  arr = newArray
-  return newArray 
+  return arr 
 }
 
-function efetuaSoma() { //ANOTACAO: aparentemente, o problema está sendo o "i" no for dessa função. Quando a linha 90 é executada, o "i" do for da linha 84 é transportado para o "i" do for dentro da função moveParaDireita, na linha 65. Uma possível forma de correção é alterar o nome de alguma das variáveis "i" para outra letra como "j" por exemplo.
-  let newArray = moveParaDireita()
+function efetuaSoma(arr) {
+  
+  arr = moveParaDireita(arr)
+
   for(j = arr.length - 1; j >= 0; j--) {
-    if(newArray[j - 1] === newArray[j]) {
-      newArray[j] += newArray[j - 1]
-      newArray[j - 1] = 0
-      console.log('%cprototype.js line:84 j', 'color: #007acc;', j);
-      
-      newArray = moveParaDireita()
+    if(arr[j - 1] === arr[j]) {
+      arr[j] += arr[j - 1]
+      arr[j - 1] = 0   
+         
+      arr = moveParaDireita(arr)
       
     }
   }
-  return arr = newArray
+  return arr
 }
 
-console.log("array ANTES: ", arr)
-efetuaSoma()
-console.log("array DEPOIS: ", arr)
+let arrayTeste = [[0,2,4,2],
+                  [0,0,2,0],
+                  [0,4,2,2],
+                  [0,2,0,0]];
+    // RESULTADO ESPERADO:
+    // [[0,2,4,2],
+    // [0,0,0,2],
+    // [0,0,4,4],
+    // [0,0,0,2]
+console.log('%cprototype.js line:101 Antes', 'color: #007acc;', arrayTeste);
+arrayTeste.forEach((e, i) => {
+  arrayTeste[i] = efetuaSoma(e)
+});
+console.log('%cprototype.js line:101 Depois', 'color: #007acc;', arrayTeste);
