@@ -88,5 +88,5 @@ function rightMove(arr) {
   return arr
 }
 console.log('%cprototype.js line:114 ar', 'color: #007acc;', arrayTeste);
-arrayTeste = arrayTeste.map(e => efetuaSoma(e))
+arrayTeste = arrayTeste.map(efetuaSoma) //Ao ocultar os parâmetros da função interna ao array.map, automaticamente é como se você estivesse passando cada elemento do array como parâmetro. Nesse caso, seria o mesmo que: arrayTeste = arrayTeste.map(e => efetuaSoma(e))
 console.log('%cprototype.js line:102 ar', 'color: #007acc;', arrayTeste);
