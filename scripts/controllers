@@ -33,7 +33,9 @@ function pressRightButton(arr) { //Será substituído futuramente por um "pressi
     for(i = 0; i < arrLength; i++) {arr.unshift(0);}
     return arr
   }
-  console.log('%cprototype.js line:114 ar', 'color: #007acc;', arrayGrid);
-  arrayGrid = arrayGrid.map(rightMoveSum) //Ao ocultar os parâmetros da função interna ao array.map, automaticamente é como se você estivesse passando cada elemento do array como parâmetro. Nesse caso, seria o mesmo que: arrayGrid = arrayGrid.map(e => rightMoveSum(e))
-  console.log('%cprototype.js line:102 ar', 'color: #007acc;', arrayGrid);
   
+  export const controller = {
+    pressRightButton,
+    rightMoveSum,
+    rightMove
+}

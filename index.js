@@ -1,6 +1,9 @@
+import { constructor } from "./constructors.js";
+import { controller } from "./controllers.js";
+
+
 var arrayGrid = createInitialGrid(ROW_NUMBER, COLUMN_NUMBER)
 
-const HTMLgrid = document.querySelector(".grid");
 
 showGrid();
 
@@ -9,8 +12,6 @@ const testButton = document.querySelector(".test-button")
 testButton.addEventListener('click', () => {
     pressRightButton(arrayGrid);
 })
-
-
 
 function isGameOver() {
   let gameOver = false;
@@ -25,3 +26,6 @@ function isGameOver() {
   return gameOver;
 }
 
+console.log('%cprototype.js line:114 ar', 'color: #007acc;', arrayGrid);
+arrayGrid = arrayGrid.map(rightMoveSum) //Ao ocultar os parâmetros da função interna ao array.map, automaticamente é como se você estivesse passando cada elemento do array como parâmetro. Nesse caso, seria o mesmo que: arrayGrid = arrayGrid.map(e => rightMoveSum(e))
+console.log('%cprototype.js line:102 ar', 'color: #007acc;', arrayGrid);
