@@ -56,50 +56,37 @@
 
 // AREA DE TESTES
 
-
-
-function moveParaDireita(arr) {
-  
-  let count = arr.length - 1
-
-  for(i = arr.length - 2; i >= 0; i--){
-    if(arr[i] !== 0) {
-
-      arr[count] = arr[i]
-      // arr[i] = 0
-      count--
-    }
-  }
-  return arr 
-}
-
+let arrayTeste = [[0,2,4,4],
+                  [0,0,2,0],
+                  [4,4,2,0],
+                  [0,2,2,0]];
+                  
 function efetuaSoma(arr) {
   
-  arr = moveParaDireita(arr)
+  arr = rightMove(arr)
 
   for(j = arr.length - 1; j >= 0; j--) {
     if(arr[j - 1] === arr[j]) {
       arr[j] += arr[j - 1]
       arr[j - 1] = 0   
          
-      arr = moveParaDireita(arr)
+      arr = rightMove(arr)
       
     }
   }
   return arr
 }
 
-let arrayTeste = [[0,2,4,2],
-                  [0,0,2,0],
-                  [0,4,2,2],
-                  [0,2,0,0]];
-    // RESULTADO ESPERADO:
-    // [[0,2,4,2],
-    // [0,0,0,2],
-    // [0,0,4,4],
-    // [0,0,0,2]
-console.log('%cprototype.js line:101 Antes', 'color: #007acc;', arrayTeste);
-arrayTeste.forEach((e, i) => {
-  arrayTeste[i] = efetuaSoma(e)
-});
-console.log('%cprototype.js line:101 Depois', 'color: #007acc;', arrayTeste);
+
+
+function rightMove(arr) {
+
+  let arrLength = arr.length
+  arr = arr.filter(e => e !== 0)
+  arrLength -= arr.length
+  for(i = 0; i < arrLength; i++) {arr.unshift(0);}
+  return arr
+}
+console.log('%cprototype.js line:114 ar', 'color: #007acc;', arrayTeste);
+arrayTeste = arrayTeste.map(e => efetuaSoma(e))
+console.log('%cprototype.js line:102 ar', 'color: #007acc;', arrayTeste);
