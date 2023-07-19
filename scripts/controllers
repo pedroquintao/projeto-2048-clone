@@ -1,0 +1,39 @@
+function pressRightButton(arr) { //Será substituído futuramente por um "pressionar tecla seta para direita"
+  
+    if(isGameOver()) {
+      return HTMLgrid.innerHTML = "GAME OVER!";
+    }
+    
+    arrayGrid = arr.map(rightMoveSum)
+    createNewRandomPositionElement();
+    showGrid();
+  }
+
+  function rightMoveSum(arr) {
+
+    arr = rightMove(arr)
+  
+    for(j = arr.length - 1; j >= 0; j--) {
+      if(arr[j - 1] === arr[j]) {
+        arr[j] += arr[j - 1]
+        arr[j - 1] = 0
+  
+        arr = rightMove(arr)
+  
+      }
+    }
+    return arr
+  }
+  
+  function rightMove(arr) {
+  
+    let arrLength = arr.length
+    arr = arr.filter(e => e !== 0)
+    arrLength -= arr.length
+    for(i = 0; i < arrLength; i++) {arr.unshift(0);}
+    return arr
+  }
+  console.log('%cprototype.js line:114 ar', 'color: #007acc;', arrayGrid);
+  arrayGrid = arrayGrid.map(rightMoveSum) //Ao ocultar os parâmetros da função interna ao array.map, automaticamente é como se você estivesse passando cada elemento do array como parâmetro. Nesse caso, seria o mesmo que: arrayGrid = arrayGrid.map(e => rightMoveSum(e))
+  console.log('%cprototype.js line:102 ar', 'color: #007acc;', arrayGrid);
+  
