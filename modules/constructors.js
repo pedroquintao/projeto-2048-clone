@@ -10,7 +10,7 @@ function createInitialGrid(row, column) {
   for(let i = 0; i < row; i++) {
     newArray.push(columnArray)
   }
-
+  newArray = [[2,0,8,0],[0,2,2,0],[2,2,2,2],[0,2,0,2]]
   return newArray
 }
 
@@ -22,7 +22,7 @@ function createNewRandomPositionElement(arr) {
 
   const rowIndex = Math.floor(Math.random() * ROW_NUMBER);
   const columnIndex = Math.floor(Math.random() * COLUMN_NUMBER);
-
+  
   arr[rowIndex][columnIndex] === 0? arr[rowIndex][columnIndex] = 2 : createNewRandomPositionElement(arr);
 }
 
