@@ -4,7 +4,7 @@ function isGameOver(arr) {
     let gameOver;
     let zeroElementCounter = 0;
     let nonZeroElementCounter = 0;
-    console.log('%ccontrollers.js line:7 arr', 'color: #007acc;', arr);
+    
     arr.forEach(row => row.forEach((column) => {
       column === 0? zeroElementCounter++ : nonZeroElementCounter++;
     }))
@@ -21,43 +21,50 @@ function pressRightButton(arr) { //Será substituído futuramente por um "pressi
 
       return arr;
     }
-
-    arr = arr.map(rightMoveSum)
+    
+    arr = arr.map(e => horizontalMove(e, "right"))
     constructor.createNewRandomPositionElement(arr);
     constructor.showGrid(arr)
 
     return arr;
   }
 
-
-function rightMoveSum(arr) {
-
-  arr = rightMove(arr)
-
-  for(let j = arr.length - 1; j >= 0; j--) {
-    if(arr[j - 1] === arr[j]) {
-      arr[j] += arr[j - 1]
-      arr[j - 1] = 0
-
-      arr = rightMove(arr)
-
-    }
-  }
-  return arr
-}
-
-function rightMove(arr) {
-  //[0,2,4,0]
-  //[2,4]
-  //[0,0,0,4]
-  //[0,0,2,4]
+function horizontalMove(arr, move) {
   
   let arrFiltred = arr.filter(e => e !== 0)
-  
   arr = arr.fill(0)
   
-  arrFiltred.forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) //Está correto
-  
+  switch(move){
+    case "right":
+      debugger
+      arrFiltred.forEach((e, i) => {
+        if(e === arrFiltred[i + 1]){
+          arrFiltred[i] += arrFiltred[i + 1];
+          arrFiltred.splice(i + 1, 1)
+          debugger
+          return e;
+        }
+        return e;
+      })
+      arrFiltred.forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
+      break
+
+    case "left":
+      arrFiltred.reverse();
+      arrFiltred.forEach((e, i) => {
+        if(e === arrFiltred[i + 1]){
+          arrFiltred[i] += arrFiltred[i + 1];
+          arrFiltred.splice(i + 1, 1)
+          debugger
+          return e;
+        }
+        return e;
+      })
+      arrFiltred.reverse();
+      arrFiltred.forEach((e, i) => arr.splice(i, 1, e)) 
+      break
+  }
+
   return arr
 }
 
@@ -68,45 +75,17 @@ function pressLeftButton(arr) {
     return arr
   }
   
-  arr = arr.map(leftMoveSum)
+  arr = arr.map(e => horizontalMove(e, "left"))
   
   constructor.createNewRandomPositionElement(arr);
   constructor.showGrid(arr)
-}
-
-function leftMoveSum(arr) {
-  debugger
-  arr = leftMove(arr)
-  debugger
-  for(let j = 0; j < arr.length - 1; j++) {
-    if(arr[j] === arr[j + 1]) {
-      arr[j] += arr[j + 1]
-      arr[j + 1] = 0
-      debugger
-      arr = leftMove(arr)
-      debugger
-    }
-  }
   return arr;
-}
-
-function leftMove(arr) {
-  let arrLength = arr.length
-  arr = arr.filter(e => e !== 0)
-  arrLength -= arr.length
-  for(let i = 0; i < arrLength; i++) {
-
-    arr.push(0);}
-  return arr
 }
 
 
   export const controller = {
     isGameOver,
     pressRightButton,
-    rightMoveSum,
-    rightMove,
+    horizontalMove,
     pressLeftButton,
-    leftMoveSum,
-    leftMove
 }
