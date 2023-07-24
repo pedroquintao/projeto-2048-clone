@@ -1,29 +1,32 @@
+import { controller } from "./controllers.js";
+
 const HTML_GRID = document.querySelector(".grid");
 const ROW_NUMBER = 4;
 const COLUMN_NUMBER = 4;
 
 function createInitialGrid(row, column) {
 
-  const columnArray = new Array(column).fill(0);
   let newArray = []
 
   for(let i = 0; i < row; i++) {
-    newArray.push(columnArray)
+    newArray.push(new Array(column).fill(0))
   }
-  newArray = [[2,2,8,0],[0,2,2,0],[2,2,2,2],[0,2,0,2]]
+  // newArray = [[0,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
+  
   return newArray
 }
 
-function showGrid(arr) {
-  HTML_GRID.innerHTML = arr.join('<br>')
+function showGrid(grid) {
+  controller.isGameOver(grid)? constructor.HTML_GRID.innerHTML = "GAME OVER!" : HTML_GRID.innerHTML = grid.join('<br>')
 }
 
-function createNewRandomPositionElement(arr) {
+function createNewRandomPositionElement(grid) {
   const rowIndex = Math.floor(Math.random() * ROW_NUMBER);
   const columnIndex = Math.floor(Math.random() * COLUMN_NUMBER);
-
-  arr[rowIndex][columnIndex] === 0? arr[rowIndex][columnIndex] = 2 : createNewRandomPositionElement(arr);
   
+  if(!controller.isGameOver(grid)) {
+    grid[rowIndex][columnIndex] === 0? grid[rowIndex][columnIndex] = 2 : createNewRandomPositionElement(grid);
+    }
 }
 
 export const constructor = {

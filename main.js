@@ -5,6 +5,7 @@ import { controller } from "./modules/controllers.js";
 
 var arrayGrid = constructor.createInitialGrid(constructor.ROW_NUMBER, constructor.COLUMN_NUMBER)
 
+console.log('%cmain.js line:17 arrayGrid', 'color: #007acc;', arrayGrid);
 constructor.showGrid(arrayGrid);
 
 const rightButton = document.querySelector(".right-button")

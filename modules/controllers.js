@@ -1,7 +1,7 @@
 import { constructor } from "./constructors.js";
 
 function isGameOver(grid) {
-    let gameOver;
+    let gameOver = false;
     let zeroElementCounter = 0;
     let nonZeroElementCounter = 0;
     
@@ -9,20 +9,15 @@ function isGameOver(grid) {
       column === 0? zeroElementCounter++ : nonZeroElementCounter++;
     }))
 
-    nonZeroElementCounter < 15? gameOver = false : gameOver = true;
-
-    return gameOver;
+    nonZeroElementCounter < 16? gameOver = false : gameOver = true;
+    return gameOver
 }
 
 function pressRightButton(grid) { //Será substituído futuramente por um "pressionar tecla seta para direita"
     
-    if(isGameOver(grid)) {
-      constructor.HTML_GRID.innerHTML = "GAME OVER!";
-
-      return grid;
-    }
-    
+    isGameOver(grid);
     grid = grid.map(e => horizontalMove(e, "right"))
+    debugger
     constructor.createNewRandomPositionElement(grid);
     constructor.showGrid(grid)
 
@@ -64,9 +59,13 @@ function pressUpButton(grid) {
 }
 
 function pressDownButton(grid) {
-  console.log('%ccontrollers.js line:51 Down Antes', 'color: #007acc;', grid);
+
+  if(isGameOver(grid)) {
+    constructor.HTML_GRID.innerHTML = "GAME OVER!"
+    return grid
+  }
+
   grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "down")))
-  console.log('%ccontrollers.js line:51 Down Depois', 'color: #007acc;', grid);
 
   constructor.createNewRandomPositionElement(grid);
   constructor.showGrid(grid)
