@@ -1,15 +1,9 @@
 import { constructor } from "./constructors.js";
 
 function isGameOver(grid) {
-    let gameOver = false;
-    let zeroElementCounter = 0;
-    let nonZeroElementCounter = 0;
+    const nonZeroElements = [].concat(...grid).filter(e => e !== 0).length
     
-    grid.forEach(row => row.forEach((column) => {
-      column === 0? zeroElementCounter++ : nonZeroElementCounter++;
-    }))
-
-    nonZeroElementCounter < 16? gameOver = false : gameOver = true;
+    nonZeroElements < 16? gameOver = false : gameOver = true;
     return gameOver
 }
 
@@ -17,7 +11,7 @@ function pressRightButton(grid) { //Será substituído futuramente por um "press
     
     isGameOver(grid);
     grid = grid.map(e => horizontalMove(e, "right"))
-    debugger
+    
     constructor.createNewRandomPositionElement(grid);
     constructor.showGrid(grid)
 
