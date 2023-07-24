@@ -26,6 +26,5 @@ upButton.addEventListener('click', () => {
 })
 
 downButton.addEventListener('click', () => {
-  
     arrayGrid = controller.pressDownButton(arrayGrid);
 })

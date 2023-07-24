@@ -53,10 +53,8 @@ function pressUpButton(grid) {
     constructor.HTML_GRID.innerHTML = "GAME OVER!"
     return grid
   }
-  let gridSpinedClockwise = rotateGridClockwise(grid)
   
-  grid = gridSpinedClockwise.map(e => horizontalMove(e, "up"))
-  grid = rotateGridCounterClockwise(grid)
+  grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "up")))
 
   constructor.createNewRandomPositionElement(grid);
   constructor.showGrid(grid)
@@ -67,8 +65,13 @@ function pressUpButton(grid) {
 
 function pressDownButton(grid) {
   console.log('%ccontrollers.js line:51 Down Antes', 'color: #007acc;', grid);
-  grid = rotateGridCounterClockwise(grid)
+  grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "down")))
   console.log('%ccontrollers.js line:51 Down Depois', 'color: #007acc;', grid);
+
+  constructor.createNewRandomPositionElement(grid);
+  constructor.showGrid(grid)
+  
+  return grid;
 
 }
 
@@ -95,6 +98,7 @@ function horizontalMove(arr, move) {
       break
 
     case "left":
+    case "down":
       arrFiltred.reverse();
       arrFiltred.forEach((e, i) => {
         if(e === arrFiltred[i + 1]){
