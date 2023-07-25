@@ -2,50 +2,41 @@ import { constructor } from "./constructors.js";
 
 function isGameOver(grid) {
     const nonZeroElements = [].concat(...grid).filter(e => e !== 0).length;
-    console.log('%ccontrollers.js line:6 newGrid', 'color: #007acc;', nonZeroElements);
     return nonZeroElements < 16? false : true;
 }
 
 function pressRightButton(grid) { //Será substituído futuramente por um "pressionar tecla seta para direita"
     
-    isGameOver(grid);
-    grid = grid.map(e => horizontalMove(e, "right"))
-    
-    constructor.createNewRandomPositionElement(grid);
-    constructor.showGrid(grid)
+    if(!isGameOver(grid)) {
+      grid = grid.map(e => horizontalMove(e, "right"))
+      
+      constructor.createNewRandomPositionElement(grid);
+      constructor.showGrid(grid)
+    };
 
     return grid;
   }
 
 function pressLeftButton(grid) {
 
-  if(isGameOver(grid)) {
-    constructor.HTML_GRID.innerHTML = "GAME OVER!"
-    return grid
+  if(!isGameOver(grid)) {
+    grid = grid.map(e => horizontalMove(e, "left"))
+    
+    constructor.createNewRandomPositionElement(grid);
+    constructor.showGrid(grid)
   }
   
-  grid = grid.map(e => horizontalMove(e, "left"))
-  
-  constructor.createNewRandomPositionElement(grid);
-  constructor.showGrid(grid)
   return grid;
 }
 
 function pressUpButton(grid) {
-    // [2,2,8,0],
-    // [0,2,2,0],
-    // [2,2,2,2],
-    // [0,2,0,2]
 
-  if(isGameOver(grid)) {
-    constructor.HTML_GRID.innerHTML = "GAME OVER!"
-    return grid
-  }
+  if(!isGameOver(grid)) {
+    grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "up")))
   
-  grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "up")))
-
-  constructor.createNewRandomPositionElement(grid);
-  constructor.showGrid(grid)
+    constructor.createNewRandomPositionElement(grid);
+    constructor.showGrid(grid)
+  }
   
   return grid;
 
@@ -53,18 +44,14 @@ function pressUpButton(grid) {
 
 function pressDownButton(grid) {
 
-  if(isGameOver(grid)) {
-    constructor.HTML_GRID.innerHTML = "GAME OVER!"
-    return grid
+  if(!isGameOver(grid)) {
+    grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "down")))
+  
+    constructor.createNewRandomPositionElement(grid);
+    constructor.showGrid(grid)
   }
 
-  grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "down")))
-
-  constructor.createNewRandomPositionElement(grid);
-  constructor.showGrid(grid)
-  
   return grid;
-
 }
 
 function horizontalMove(arr, move) {
@@ -80,11 +67,7 @@ function horizontalMove(arr, move) {
         if(e === arrFiltred[i + 1]){
           arrFiltred[i] += arrFiltred[i + 1];
           arrFiltred.splice(i + 1, 1)
-    
-          return e;
         }
-
-        return e;
       })
       arrFiltred.forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
       break
@@ -105,22 +88,6 @@ function horizontalMove(arr, move) {
       arrFiltred.reverse();
       arrFiltred.forEach((e, i) => arr.splice(i, 1, e)) 
       break
-    
-    // case "up":
-    //   arrFiltred.reverse();
-    //   arrFiltred.forEach((e, i) => {
-    //     if(e === arrFiltred[i + 1]){
-    //       arrFiltred[i] += arrFiltred[i + 1];
-    //       arrFiltred.splice(i + 1, 1)
-    
-    //       return e;
-    //     }
-
-    //     return e;
-    //   })
-    //   arrFiltred.reverse();
-    //   arrFiltred.forEach((e, i) => arr.splice(i, 1, e)) 
-    //   break
   }
 
   return arr

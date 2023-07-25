@@ -26,7 +26,7 @@ function createNewRandomPositionElement(grid) {
   
   if(!controller.isGameOver(grid)) {
     grid[rowIndex][columnIndex] === 0? grid[rowIndex][columnIndex] = 2 : createNewRandomPositionElement(grid);
-    }
+  }
 }
 
 export const constructor = {
