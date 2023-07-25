@@ -39,7 +39,6 @@ function pressUpButton(grid) {
   }
   
   return grid;
-
 }
 
 function pressDownButton(grid) {
@@ -69,29 +68,31 @@ function horizontalMove(arr, move) {
           arrFiltred.splice(i + 1, 1)
         }
       })
+
       arrFiltred.forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
+
       break
 
     case "left":
     case "down":
+
       arrFiltred.reverse();
       arrFiltred.forEach((e, i) => {
         if(e === arrFiltred[i + 1]){
           arrFiltred[i] += arrFiltred[i + 1];
           arrFiltred.splice(i + 1, 1)
-    
-          return e;
         }
-
-        return e;
       })
+
       arrFiltred.reverse();
       arrFiltred.forEach((e, i) => arr.splice(i, 1, e)) 
+
       break
   }
 
   return arr
 }
+
 function rotateGridClockwise(grid) {
   let gridSpinedClockwise = new Array(grid.length).fill(new Array(grid[0].length))
 

@@ -3,17 +3,20 @@ import { controller } from "./controllers.js";
 const HTML_GRID = document.querySelector(".grid");
 const ROW_NUMBER = 4;
 const COLUMN_NUMBER = 4;
+const INITIAL_RANDOM_NUMBERS = 2;
 
 function createInitialGrid(row, column) {
 
-  let newArray = []
+  let newGrid = []
 
   for(let i = 0; i < row; i++) {
-    newArray.push(new Array(column).fill(0))
+    newGrid.push(new Array(column).fill(0))
   }
-  // newArray = [[0,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
-  
-  return newArray
+  for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
+    createNewRandomPositionElement(newGrid);
+  }
+
+  return newGrid
 }
 
 function showGrid(grid) {
