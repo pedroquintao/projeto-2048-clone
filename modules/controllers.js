@@ -1,10 +1,9 @@
 import { constructor } from "./constructors.js";
 
 function isGameOver(grid) {
-    const nonZeroElements = [].concat(...grid).filter(e => e !== 0).length
-    
-    nonZeroElements < 16? gameOver = false : gameOver = true;
-    return gameOver
+    const nonZeroElements = [].concat(...grid).filter(e => e !== 0).length;
+    console.log('%ccontrollers.js line:6 newGrid', 'color: #007acc;', nonZeroElements);
+    return nonZeroElements < 16? false : true;
 }
 
 function pressRightButton(grid) { //Será substituído futuramente por um "pressionar tecla seta para direita"
