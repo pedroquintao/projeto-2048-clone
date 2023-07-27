@@ -1,16 +1,55 @@
 import { constructor } from "./constructors.js";
 
 function isGameOver(grid) {
+  // [1,2,[3,4]] [1,2,3,4]
     const nonZeroElements = [].concat(...grid).filter(e => e !== 0).length;
     return nonZeroElements < 16? false : true;
 }
 
-function pressRightButton(grid) { //Será substituído futuramente por um "pressionar tecla seta para direita"
+// //TODO:*************************/
+// //TODO:*    EM CONSTRUÇÃO      */
+// //TODO:*************************/,
+
+// function pressButton(grid, move) {
+//   if(!isGameOver(grid)) {
+//     switch(move){
+//       case "right":
+//       case "up":
+
+//         grid = grid.map(e => {
+//           arrFiltred.forEach((e, i) => {
+
+//             let arrFiltred = arr.filter(e => e !== 0)
+//             let arr = arr.fill(0)
+//             if(e === arrFiltred[i + 1]){
+//               arrFiltred[i] += arrFiltred[i + 1];
+//               arrFiltred.splice(i + 1, 1)
+//             }
+//           })
     
-    if(!isGameOver(grid)) {
-      grid = grid.map(e => horizontalMove(e, "right"))
+//           arrFiltred.forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
+//         })
+//         break;
+//       case "left":
+//       case "down":
+//     }
+
+//   }
+// }
+
+function pressRightButton(grid) { //Será substituído futuramente por um "pressionar tecla seta para direita"
+  if(!isGameOver(grid)) {
+      const initialGrid = grid.map(e => [...e]);
+
+      let uniqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+
+      grid.map(e => horizontalMove(e, "right"))
+
+      console.log('%ccontrollers.js line:49 grid', 'color: #007acc;', grid);
+      console.log('%ccontrollers.js line:50 uniqualElements', 'color: #007acc;', uniqualElements);
       
-      constructor.createNewRandomPositionElement(grid);
+      uniqualElements > 0? constructor.createNewRandomPositionElement(grid) : null
+
       constructor.showGrid(grid)
     };
 
