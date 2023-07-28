@@ -1,24 +1,27 @@
 import { constructor } from "./constructors.js";
 
 function isGameOver(grid) {
-  // [1,2,[3,4]] [1,2,3,4]
     const nonZeroElements = [].concat(...grid).filter(e => e !== 0).length;
+
     return nonZeroElements < 16? false : true;
 }
-
-// //TODO:*************************/
-// //TODO:*    EM CONSTRUÇÃO      */
-// //TODO:*************************/,
 
 function pressButton(grid, move) { //Será substituído futuramente por um "pressionar tecla seta para direita"
 
   if(!isGameOver(grid)) {
     
     const initialGrid = grid.map(e => [...e]);
-    
-    grid.map(e => moveGrid(e, move))
-    
-    if(move === "up" || move === "down") {grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, move)))}
+    switch(move){
+      case "right":
+      case "left":
+        grid.map(e => moveGrid(e, move))
+        break
+
+      case "up":
+      case "down":
+        grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, move)))
+        break
+    }
 
     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
@@ -29,73 +32,8 @@ function pressButton(grid, move) { //Será substituído futuramente por um "pres
   return grid;
 }
 
-// function pressRightButton(grid) { //Será substituído futuramente por um "pressionar tecla seta para direita"
-
-//   if(!isGameOver(grid)) {
-
-//     const initialGrid = grid.map(e => [...e]);
-    
-//     grid.map(e => moveGrid(e, "right"))
-    
-//     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-//     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
-
-//     constructor.showGrid(grid)
-//   };
-
-//   return grid;
-// }
-
-// function pressLeftButton(grid) {
-
-//   if(!isGameOver(grid)) {
-
-//     const initialGrid = grid.map(e => [...e]);
-
-//     grid = grid.map(e => moveGrid(e, "left"))
-    
-//     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-//     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
-
-//     constructor.showGrid(grid)
-//   }
-  
-//   return grid;
-// }
-
-// function pressUpButton(grid) {
-
-//   if(!isGameOver(grid)) {
-//     const initialGrid = grid.map(e => [...e]);
-
-//     grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, "up")))
-  
-//     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-//     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
-
-//     constructor.showGrid(grid)
-//   }
-  
-//   return grid;
-// }
-
-// function pressDownButton(grid) {
-
-//   if(!isGameOver(grid)) {
-//     const initialGrid = grid.map(e => [...e]);
-
-//     grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, "down")))
-  
-//     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-//     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
-//     constructor.showGrid(grid)
-//   }
-
-//   return grid;
-// }
-
 function moveGrid(arr, move) {
-  
+
   let arrFiltred = arr.filter(e => e !== 0)
   arr = arr.fill(0)
 
@@ -109,11 +47,17 @@ function moveGrid(arr, move) {
     }
   })
 
-  if(move === "right" || move === "up")
-    arrFiltred.reverse().forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
+  switch(move){
+    case "right":
+    case "up":
+      arrFiltred.reverse().forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e))
+      break
 
-  else if (move === "left" || move === "down")
-  arrFiltred.forEach((e, i) => arr.splice(i, 1, e)) 
+    case "left":
+    case "down":
+      arrFiltred.forEach((e, i) => arr.splice(i, 1, e))
+      break
+  }
 
   return arr
 }
@@ -124,6 +68,7 @@ function rotateGridClockwise(grid) {
   for(let i = 0; i < grid.length; i++) {
     gridSpinedClockwise[i] = gridSpinedClockwise.map((e, j) => grid[(gridSpinedClockwise.length - 1) - j][i])
   }
+
   return gridSpinedClockwise
 }
 
@@ -133,14 +78,12 @@ function rotateGridCounterClockwise(grid) {
   for(let i = 0; i < grid.length; i++) {
     gridSpinedCounterClockwise[i] = gridSpinedCounterClockwise.map((e, j) => grid[j][(grid.length - 1) - i])
   }
+
+
   return gridSpinedCounterClockwise
 }
   export const controller = {
     isGameOver,
-    // pressRightButton,
-    // pressLeftButton,
-    // pressUpButton,
-    // pressDownButton,
     pressButton,
     moveGrid
 }
