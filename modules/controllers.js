@@ -108,22 +108,23 @@ function horizontalMove(arr, move) {
   switch(move){
     case "right":
     case "up":
+      //[0,2,2,2]
+      //[2,2,2,0]
+      //[2,2,2]
 
-      arrFiltred.forEach((e, i) => {
+      arrFiltred.reverse().forEach((e, i) => {
         if(e === arrFiltred[i + 1]){
           arrFiltred[i] += arrFiltred[i + 1];
           arrFiltred.splice(i + 1, 1)
         }
       })
 
-      arrFiltred.forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
+      arrFiltred.reverse().forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
 
       break
 
     case "left":
     case "down":
-
-      arrFiltred.reverse();
       arrFiltred.forEach((e, i) => {
         if(e === arrFiltred[i + 1]){
           arrFiltred[i] += arrFiltred[i + 1];
@@ -131,7 +132,6 @@ function horizontalMove(arr, move) {
         }
       })
 
-      arrFiltred.reverse();
       arrFiltred.forEach((e, i) => arr.splice(i, 1, e)) 
 
       break
