@@ -10,95 +10,89 @@ function isGameOver(grid) {
 // //TODO:*    EM CONSTRUÇÃO      */
 // //TODO:*************************/,
 
-// function pressButton(grid, move) {
-//   if(!isGameOver(grid)) {
-//     switch(move){
-//       case "right":
-//       case "up":
+function pressButton(grid, move) { //Será substituído futuramente por um "pressionar tecla seta para direita"
 
-//         grid = grid.map(e => {
-//           arrFiltred.forEach((e, i) => {
-
-//             let arrFiltred = arr.filter(e => e !== 0)
-//             let arr = arr.fill(0)
-//             if(e === arrFiltred[i + 1]){
-//               arrFiltred[i] += arrFiltred[i + 1];
-//               arrFiltred.splice(i + 1, 1)
-//             }
-//           })
+  if(!isGameOver(grid)) {
     
-//           arrFiltred.forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
-//         })
-//         break;
-//       case "left":
-//       case "down":
-//     }
+    const initialGrid = grid.map(e => [...e]);
+    
+    grid.map(e => moveGrid(e, move))
+    
+    if(move === "up" || move === "down") {grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, move)))}
 
-//   }
+    const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+    if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
+
+    constructor.showGrid(grid)
+  };
+
+  return grid;
+}
+
+// function pressRightButton(grid) { //Será substituído futuramente por um "pressionar tecla seta para direita"
+
+//   if(!isGameOver(grid)) {
+
+//     const initialGrid = grid.map(e => [...e]);
+    
+//     grid.map(e => moveGrid(e, "right"))
+    
+//     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+//     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
+
+//     constructor.showGrid(grid)
+//   };
+
+//   return grid;
 // }
 
-function pressRightButton(grid) { //Será substituído futuramente por um "pressionar tecla seta para direita"
-  if(!isGameOver(grid)) {
-      const initialGrid = grid.map(e => [...e]);
-      // let concatenadedInitialGrid = [].concat(...initialGrid)
-      
-      grid.map(e => moveGrid(e, "right"))
-      
-      const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-      if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
+// function pressLeftButton(grid) {
 
-      constructor.showGrid(grid)
-    };
+//   if(!isGameOver(grid)) {
 
-    return grid;
-  }
+//     const initialGrid = grid.map(e => [...e]);
 
-function pressLeftButton(grid) {
-
-  if(!isGameOver(grid)) {
-    const initialGrid = grid.map(e => [...e]);
-
-    grid = grid.map(e => moveGrid(e, "left"))
+//     grid = grid.map(e => moveGrid(e, "left"))
     
-    const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-    if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
+//     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+//     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
 
-    constructor.showGrid(grid)
-  }
+//     constructor.showGrid(grid)
+//   }
   
-  return grid;
-}
+//   return grid;
+// }
 
-function pressUpButton(grid) {
+// function pressUpButton(grid) {
 
-  if(!isGameOver(grid)) {
-    const initialGrid = grid.map(e => [...e]);
+//   if(!isGameOver(grid)) {
+//     const initialGrid = grid.map(e => [...e]);
 
-    grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, "up")))
+//     grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, "up")))
   
-    const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-    if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
+//     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+//     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
 
-    constructor.showGrid(grid)
-  }
+//     constructor.showGrid(grid)
+//   }
   
-  return grid;
-}
+//   return grid;
+// }
 
-function pressDownButton(grid) {
+// function pressDownButton(grid) {
 
-  if(!isGameOver(grid)) {
-    const initialGrid = grid.map(e => [...e]);
+//   if(!isGameOver(grid)) {
+//     const initialGrid = grid.map(e => [...e]);
 
-    grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, "down")))
+//     grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, "down")))
   
-    const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-    if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
-    constructor.showGrid(grid)
-  }
+//     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+//     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
+//     constructor.showGrid(grid)
+//   }
 
-  return grid;
-}
+//   return grid;
+// }
 
 function moveGrid(arr, move) {
   
@@ -143,9 +137,10 @@ function rotateGridCounterClockwise(grid) {
 }
   export const controller = {
     isGameOver,
-    pressRightButton,
-    pressLeftButton,
-    pressUpButton,
-    pressDownButton,
+    // pressRightButton,
+    // pressLeftButton,
+    // pressUpButton,
+    // pressDownButton,
+    pressButton,
     moveGrid
 }

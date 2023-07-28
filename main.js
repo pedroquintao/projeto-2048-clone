@@ -13,19 +13,34 @@ const leftButton = document.querySelector(".left-button")
 const upButton = document.querySelector(".up-button")
 const downButton = document.querySelector(".down-button")
 
-
 rightButton.addEventListener('click', () => {
-    arrayGrid = controller.pressRightButton(arrayGrid);
+    arrayGrid = controller.pressButton(arrayGrid, "right");
 })
 
 leftButton.addEventListener('click', () => {
-    arrayGrid = controller.pressLeftButton(arrayGrid);
+    arrayGrid = controller.pressButton(arrayGrid, "left");
 })
 
 upButton.addEventListener('click', () => {
-    arrayGrid = controller.pressUpButton(arrayGrid);
+    arrayGrid = controller.pressButton(arrayGrid, "up");
 })
 
 downButton.addEventListener('click', () => {
-    arrayGrid = controller.pressDownButton(arrayGrid);
+    arrayGrid = controller.pressButton(arrayGrid, "down");
 })
+
+// rightButton.addEventListener('click', () => {
+//     arrayGrid = controller.pressRightButton(arrayGrid);
+// })
+
+// leftButton.addEventListener('click', () => {
+//     arrayGrid = controller.pressLeftButton(arrayGrid);
+// })
+
+// upButton.addEventListener('click', () => {
+//     arrayGrid = controller.pressUpButton(arrayGrid);
+// })
+
+// downButton.addEventListener('click', () => {
+//     arrayGrid = controller.pressDownButton(arrayGrid);
+// })
