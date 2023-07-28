@@ -42,7 +42,7 @@ function pressRightButton(grid) { //Será substituído futuramente por um "press
       const initialGrid = grid.map(e => [...e]);
       // let concatenadedInitialGrid = [].concat(...initialGrid)
       
-      grid.map(e => horizontalMove(e, "right"))
+      grid.map(e => moveGrid(e, "right"))
       
       const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
       if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
@@ -58,7 +58,7 @@ function pressLeftButton(grid) {
   if(!isGameOver(grid)) {
     const initialGrid = grid.map(e => [...e]);
 
-    grid = grid.map(e => horizontalMove(e, "left"))
+    grid = grid.map(e => moveGrid(e, "left"))
     
     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
@@ -74,7 +74,7 @@ function pressUpButton(grid) {
   if(!isGameOver(grid)) {
     const initialGrid = grid.map(e => [...e]);
 
-    grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "up")))
+    grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, "up")))
   
     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
@@ -90,7 +90,7 @@ function pressDownButton(grid) {
   if(!isGameOver(grid)) {
     const initialGrid = grid.map(e => [...e]);
 
-    grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "down")))
+    grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, "down")))
   
     const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
     if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
@@ -100,42 +100,26 @@ function pressDownButton(grid) {
   return grid;
 }
 
-function horizontalMove(arr, move) {
+function moveGrid(arr, move) {
   
   let arrFiltred = arr.filter(e => e !== 0)
   arr = arr.fill(0)
-  
-  switch(move){
-    case "right":
-    case "up":
-      //[0,2,2,2]
-      //[2,2,2,0]
-      //[2,2,2]
 
-      arrFiltred.reverse().forEach((e, i) => {
-        if(e === arrFiltred[i + 1]){
-          arrFiltred[i] += arrFiltred[i + 1];
-          arrFiltred.splice(i + 1, 1)
-        }
-      })
+  if(move === "right" || move === "up")
+    arrFiltred.reverse();
 
-      arrFiltred.reverse().forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
+  arrFiltred.forEach((e, i) => {
+    if(e === arrFiltred[i + 1]){
+      arrFiltred[i] += arrFiltred[i + 1];
+      arrFiltred.splice(i + 1, 1)
+    }
+  })
 
-      break
+  if(move === "right" || move === "up")
+    arrFiltred.reverse().forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e)) 
 
-    case "left":
-    case "down":
-      arrFiltred.forEach((e, i) => {
-        if(e === arrFiltred[i + 1]){
-          arrFiltred[i] += arrFiltred[i + 1];
-          arrFiltred.splice(i + 1, 1)
-        }
-      })
-
-      arrFiltred.forEach((e, i) => arr.splice(i, 1, e)) 
-
-      break
-  }
+  else if (move === "left" || move === "down")
+  arrFiltred.forEach((e, i) => arr.splice(i, 1, e)) 
 
   return arr
 }
@@ -163,5 +147,5 @@ function rotateGridCounterClockwise(grid) {
     pressLeftButton,
     pressUpButton,
     pressDownButton,
-    horizontalMove
+    moveGrid
 }
