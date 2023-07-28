@@ -40,15 +40,12 @@ function isGameOver(grid) {
 function pressRightButton(grid) { //Será substituído futuramente por um "pressionar tecla seta para direita"
   if(!isGameOver(grid)) {
       const initialGrid = grid.map(e => [...e]);
-
-      let uniqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-
-      grid.map(e => horizontalMove(e, "right"))
-
-      console.log('%ccontrollers.js line:49 grid', 'color: #007acc;', grid);
-      console.log('%ccontrollers.js line:50 uniqualElements', 'color: #007acc;', uniqualElements);
+      // let concatenadedInitialGrid = [].concat(...initialGrid)
       
-      uniqualElements > 0? constructor.createNewRandomPositionElement(grid) : null
+      grid.map(e => horizontalMove(e, "right"))
+      
+      const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+      if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
 
       constructor.showGrid(grid)
     };
@@ -59,9 +56,13 @@ function pressRightButton(grid) { //Será substituído futuramente por um "press
 function pressLeftButton(grid) {
 
   if(!isGameOver(grid)) {
+    const initialGrid = grid.map(e => [...e]);
+
     grid = grid.map(e => horizontalMove(e, "left"))
     
-    constructor.createNewRandomPositionElement(grid);
+    const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+    if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
+
     constructor.showGrid(grid)
   }
   
@@ -71,9 +72,13 @@ function pressLeftButton(grid) {
 function pressUpButton(grid) {
 
   if(!isGameOver(grid)) {
+    const initialGrid = grid.map(e => [...e]);
+
     grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "up")))
   
-    constructor.createNewRandomPositionElement(grid);
+    const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+    if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
+
     constructor.showGrid(grid)
   }
   
@@ -83,9 +88,12 @@ function pressUpButton(grid) {
 function pressDownButton(grid) {
 
   if(!isGameOver(grid)) {
+    const initialGrid = grid.map(e => [...e]);
+
     grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => horizontalMove(e, "down")))
   
-    constructor.createNewRandomPositionElement(grid);
+    const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
+    if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
     constructor.showGrid(grid)
   }
 

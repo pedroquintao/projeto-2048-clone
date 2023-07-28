@@ -15,7 +15,7 @@ function createInitialGrid(row, column) {
   for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
     createNewRandomPositionElement(newGrid);
   }
-  newGrid = [[0,0,0,2], [0,0,0,0], [0,0,0,2], [0,4,2,4]]
+  newGrid = [[4,4,2,2], [0,0,0,0], [0,0,0,2], [0,2,2,2]]
   return newGrid
 }
 
