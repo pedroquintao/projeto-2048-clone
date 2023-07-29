@@ -12,13 +12,13 @@ function pressButton(grid, move) { //Será substituído futuramente por um "pres
     
     const initialGrid = grid.map(e => [...e]);
     switch(move){
-      case "right":
-      case "left":
+      case "ArrowRight":
+      case "ArrowLeft":
         grid.map(e => moveGrid(e, move))
         break
 
-      case "up":
-      case "down":
+      case "ArrowUp":
+      case "ArrowDown":
         grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, move)))
         break
     }
@@ -37,7 +37,7 @@ function moveGrid(arr, move) {
   let arrFiltred = arr.filter(e => e !== 0)
   arr = arr.fill(0)
 
-  if(move === "right" || move === "up")
+  if(move === "ArrowRight" || move === "ArrowUp")
     arrFiltred.reverse();
 
   arrFiltred.forEach((e, i) => {
@@ -48,13 +48,13 @@ function moveGrid(arr, move) {
   })
 
   switch(move){
-    case "right":
-    case "up":
+    case "ArrowRight":
+    case "ArrowUp":
       arrFiltred.reverse().forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e))
       break
 
-    case "left":
-    case "down":
+    case "ArrowLeft":
+    case "ArrowDown":
       arrFiltred.forEach((e, i) => arr.splice(i, 1, e))
       break
   }

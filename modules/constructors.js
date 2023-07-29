@@ -5,40 +5,8 @@ const ROW_NUMBER = 4;
 const COLUMN_NUMBER = 4;
 const INITIAL_RANDOM_NUMBERS = 2;
 
-const rightButton = document.querySelector(".right-button")
-const leftButton = document.querySelector(".left-button")
-const upButton = document.querySelector(".up-button")
-const downButton = document.querySelector(".down-button")
-
 var arrayGrid = createInitialGrid(ROW_NUMBER, COLUMN_NUMBER)
-
-const movements = {
-    
-    "right": {
-        "button": rightButton,
-        "move": "right"
-    }
-    ,
-    
-    "left": {
-        "button": leftButton,
-        "move": "left"
-    }
-    ,
-    
-    "up": {
-        "button": upButton,
-        "move": "up"
-    },
-
-    "down": {
-        "button": downButton,
-        "move": "down"
-    }
-}
-
-
-
+arrayGrid = [[1,2,3,4],[0,5,6,7],[8,9,10,11],[12,13,14,15]]
 function createInitialGrid(row, column) {
 
   let newGrid = []
@@ -54,16 +22,15 @@ function createInitialGrid(row, column) {
 }
 
 function showGrid(grid) {
-  controller.isGameOver(grid)? constructor.HTML_GRID.innerHTML = "GAME OVER!" : HTML_GRID.innerHTML = grid.join('<br>')
-}
-
-function addListeners(obj) {
-
-  for(let o in obj) {
-      obj[o]["button"].addEventListener('click', () => {
-          arrayGrid = controller.pressButton(arrayGrid, obj[o]["move"])
-      })
+  const gameOverText = "<h1>Game Over!</h1>"
+  const node = document.createElement("p");
+  const buildGameOverHTML = (parentElement, text) => {
+    const newElement = parentElement.appendChild(node)
+    newElement.innerHTML = text
+    return newElement
   }
+
+  controller.isGameOver(grid)? buildGameOverHTML(HTML_GRID, gameOverText) : HTML_GRID.innerHTML = grid.join('<br>')
 }
 
 function createNewRandomPositionElement(grid) {
@@ -74,15 +41,16 @@ function createNewRandomPositionElement(grid) {
     grid[rowIndex][columnIndex] === 0? grid[rowIndex][columnIndex] = 2 : createNewRandomPositionElement(grid);
   }
 }
+document.addEventListener('keydown', (event) => {
+  arrayGrid = controller.pressButton(arrayGrid, event.key)
+})
 
 export const constructor = {
   HTML_GRID,
   ROW_NUMBER,
   COLUMN_NUMBER,
   arrayGrid,
-  movements,
   createInitialGrid,
   showGrid,
-  addListeners,
   createNewRandomPositionElement
 }
