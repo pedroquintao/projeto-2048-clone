@@ -22,19 +22,39 @@ function createInitialGrid(row, column) {
 }
 
 function showGrid(grid) {
-  const gameOverText = "Game Over!"
+  // const gameOverText = "Game Over!"
   
-  const buildGameOverHTML = (parentElement, text) => {
-    const node = document.createElement("p")
-    node.className = "game-over-text"
-    HTML_GRID.innerHTML = grid.join('<br>')
-    const newElement = parentElement.appendChild(node)
-    newElement.innerHTML = text
+  // const buildGameOverHTML = (parentElement, text) => {
+  //   const node = document.createElement("p")
+  //   node.className = "game-over-text"
+  //   HTML_GRID.innerHTML = grid.join('<br>')
+  //   return parentElement.appendChild(node).innerHTML = text;
+  // }
 
-    return newElement
+  const buildGrid = (parentElement, gridInput) => {
+
+    const newGrid = gridInput.map(elt => {
+    
+    const gridLine = document.createElement("div")
+    gridLine.className = "grid-line"
+    
+    elt.forEach(e => {
+
+      const gridSquare = document.createElement("div")
+      gridSquare.className = "grid-square"
+      gridSquare.innerHTML = `<p class="grid-square__number">${e}</p>`
+      return gridLine.appendChild(gridSquare)
+    })
+    
+    return gridLine;
+
+    });
+    console.log('%cconstructors.js line:52 newGrid', 'color: #007acc;', newGrid);
+    newGrid.forEach(e => parentElement.appendChild(e))
   }
 
-  controller.isGameOver(grid)? buildGameOverHTML(HTML_GRID, gameOverText) : HTML_GRID.innerHTML = grid.join('<br>')
+  buildGrid(HTML_GRID, grid)
+  // controller.isGameOver(grid)? buildGameOverHTML(HTML_GRID, gameOverText) : HTML_GRID.innerHTML = grid.join('<br>')
 }
 
 function createNewRandomPositionElement(grid) {
