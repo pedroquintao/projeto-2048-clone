@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
 }
-.container {
+.grid {
     font-size: 4rem;
     display: flex;
     flex-direction: column;
@@ -11,5 +11,5 @@
     width: 100vw;
     height: 100vh;
     background-color: black;
-    color: orangered;
+    color: white;
 }

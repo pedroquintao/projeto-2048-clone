@@ -6,7 +6,7 @@ const COLUMN_NUMBER = 4;
 const INITIAL_RANDOM_NUMBERS = 2;
 
 var arrayGrid = createInitialGrid(ROW_NUMBER, COLUMN_NUMBER)
-arrayGrid = [[1,2,3,4],[0,5,6,7],[8,9,10,11],[12,13,14,15]]
+
 function createInitialGrid(row, column) {
 
   let newGrid = []
@@ -17,16 +17,20 @@ function createInitialGrid(row, column) {
   for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
     createNewRandomPositionElement(newGrid);
   }
-  newGrid = [[4,4,2,2], [0,0,0,0], [0,0,0,2], [0,2,2,2]]
+  newGrid = [[1,2,3,4],[0,5,6,7],[8,9,10,11],[12,13,14,15]]
   return newGrid
 }
 
 function showGrid(grid) {
-  const gameOverText = "<h1>Game Over!</h1>"
-  const node = document.createElement("p");
+  const gameOverText = "Game Over!"
+  
   const buildGameOverHTML = (parentElement, text) => {
+    const node = document.createElement("p")
+    node.className = "game-over-text"
+    HTML_GRID.innerHTML = grid.join('<br>')
     const newElement = parentElement.appendChild(node)
     newElement.innerHTML = text
+
     return newElement
   }
 
