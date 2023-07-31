@@ -1,15 +1,38 @@
+:root {
+    --square-background-color: #CDC1B4;
+    --square-border-color: #BBADA0;
+    --number-color: #776E65;
+}
+
 *{
     margin: 0;
     padding: 0;
 }
+
 .grid {
     font-size: 4rem;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
     background-color: black;
     color: white;
+}
+
+.grid-row {
+    display: flex;
+}
+
+.grid-square {
+    padding: 20px;
+    background-color: var(--square-background-color);
+    border: 20px solid var(--square-border-color);
+}
+
+.grid-square__number {
+    font-size: 40px;
+    color: var(--number-color)
+
 }

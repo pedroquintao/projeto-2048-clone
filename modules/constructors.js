@@ -17,7 +17,7 @@ function createInitialGrid(row, column) {
   for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
     createNewRandomPositionElement(newGrid);
   }
-  newGrid = [[1,2,3,4],[0,5,6,7],[8,9,10,11],[12,13,14,15]]
+  // newGrid = [[1,2,3,4],[0,5,6,7],[8,9,10,11],[12,13,14,15]]
   return newGrid
 }
 
@@ -35,22 +35,23 @@ function showGrid(grid) {
 
     const newGrid = gridInput.map(elt => {
     
-    const gridLine = document.createElement("div")
-    gridLine.className = "grid-line"
+    const gridRow = document.createElement("div")
+    gridRow.className = "grid-row"
     
     elt.forEach(e => {
 
       const gridSquare = document.createElement("div")
       gridSquare.className = "grid-square"
       gridSquare.innerHTML = `<p class="grid-square__number">${e}</p>`
-      return gridLine.appendChild(gridSquare)
+      return gridRow.appendChild(gridSquare)
     })
     
-    return gridLine;
+    return gridRow;
 
     });
-    console.log('%cconstructors.js line:52 newGrid', 'color: #007acc;', newGrid);
-    newGrid.forEach(e => parentElement.appendChild(e))
+    console.log('%cconstructors.js row:52 newGrid', 'color: #007acc;', newGrid);
+    parentElement.innerHTML = "";
+    newGrid.forEach(e => {parentElement.appendChild(e)})
   }
 
   buildGrid(HTML_GRID, grid)
