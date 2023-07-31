@@ -1,7 +1,20 @@
 :root {
     --square-background-color: #CDC1B4;
     --square-border-color: #BBADA0;
-    --number-color: #776E65;
+    --number-dark-color: #776E65;
+    --number-light-color
+    --color-background-2: #EEE4DA;
+    --color-background-4: #EEE1C9;
+    --color-background-8: #F3B27A;
+    --color-background-16: #F69664;
+    --color-background-32: #F77C5F;
+    --color-background-64: #F75F3B;
+    --color-background-128: #EDD073;
+    --color-background-256: #EDCC62;
+    --color-background-512: ;
+    --color-background-1024: ;
+    --color-background-2048: ;
+
 }
 
 *{
@@ -39,7 +52,7 @@
 
 .grid-square__number {
     font-size: 3rem;
-    color: var(--number-color);
+    color: var(--number-dark-color);
     font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
     font-weight: 700;
 }
