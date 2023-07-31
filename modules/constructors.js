@@ -17,24 +17,45 @@ function createInitialGrid(row, column) {
   for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
     createNewRandomPositionElement(newGrid);
   }
-  newGrid = [[1,2,3,4],[0,5,6,7],[8,9,10,11],[12,13,14,15]]
+  // newGrid = [[1,2,3,4],[0,5,6,7],[8,9,10,11],[12,13,14,15]]
   return newGrid
 }
 
 function showGrid(grid) {
-  const gameOverText = "Game Over!"
+  // const gameOverText = "Game Over!"
   
-  const buildGameOverHTML = (parentElement, text) => {
-    const node = document.createElement("p")
-    node.className = "game-over-text"
-    HTML_GRID.innerHTML = grid.join('<br>')
-    const newElement = parentElement.appendChild(node)
-    newElement.innerHTML = text
+  // const buildGameOverHTML = (parentElement, text) => {
+  //   const node = document.createElement("p")
+  //   node.className = "game-over-text"
+  //   HTML_GRID.innerHTML = grid.join('<br>')
+  //   return parentElement.appendChild(node).innerHTML = text;
+  // }
 
-    return newElement
+  const buildGrid = (parentElement, gridInput) => {
+
+    const newGrid = gridInput.map(elt => {
+    
+    const gridRow = document.createElement("div")
+    gridRow.className = "grid-row"
+    
+    elt.forEach(e => {
+
+      const gridSquare = document.createElement("div")
+      gridSquare.className = "grid-square"
+      gridSquare.innerHTML = `<p class="grid-square__number">${e}</p>`
+      return gridRow.appendChild(gridSquare)
+    })
+    
+    return gridRow;
+
+    });
+    console.log('%cconstructors.js row:52 newGrid', 'color: #007acc;', newGrid);
+    parentElement.innerHTML = "";
+    newGrid.forEach(e => {parentElement.appendChild(e)})
   }
 
-  controller.isGameOver(grid)? buildGameOverHTML(HTML_GRID, gameOverText) : HTML_GRID.innerHTML = grid.join('<br>')
+  buildGrid(HTML_GRID, grid)
+  // controller.isGameOver(grid)? buildGameOverHTML(HTML_GRID, gameOverText) : HTML_GRID.innerHTML = grid.join('<br>')
 }
 
 function createNewRandomPositionElement(grid) {
