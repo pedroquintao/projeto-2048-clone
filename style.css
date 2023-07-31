@@ -8,17 +8,18 @@
     margin: 0;
     padding: 0;
 }
-
-.grid {
-    font-size: 4rem;
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-    color: white;
+
+}
+.grid {
+    border: 7.5px solid var(--square-border-color);
 }
 
 .grid-row {
@@ -26,13 +27,19 @@
 }
 
 .grid-square {
-    padding: 20px;
+    /* padding: 20px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 107px;
+    height: 107px;
     background-color: var(--square-background-color);
-    border: 20px solid var(--square-border-color);
+    border: 7.5px solid var(--square-border-color);
 }
 
 .grid-square__number {
-    font-size: 40px;
-    color: var(--number-color)
-
+    font-size: 3rem;
+    color: var(--number-color);
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
 }
