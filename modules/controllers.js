@@ -41,7 +41,8 @@ function moveGrid(arr, move) {
     arrFiltred.reverse();
 
   arrFiltred.forEach((e, i) => {
-    if(e === arrFiltred[i + 1]){
+    
+    if(e === arrFiltred[i + 1]) {
       arrFiltred[i] += arrFiltred[i + 1];
       arrFiltred.splice(i + 1, 1)
     }
