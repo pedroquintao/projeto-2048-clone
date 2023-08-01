@@ -40,9 +40,9 @@ function showGrid(grid) {
     
     elt.forEach(e => {
 
-      const gridSquare = document.createElement("div")
-      gridSquare.className = "grid-square"
-      gridSquare.innerHTML = `<p class="grid-square__number">${e}</p>`
+      const gridSquare = document.createElement("p")
+      gridSquare.classList = `grid-square number-${e}`
+      e === 0? null : gridSquare.innerHTML = `${e}`
       return gridRow.appendChild(gridSquare)
     })
     

@@ -2,7 +2,7 @@
     --square-background-color: #CDC1B4;
     --square-border-color: #BBADA0;
     --number-dark-color: #776E65;
-    --number-light-color
+    --number-light-color: #F9F6F2;
     --color-background-2: #EEE4DA;
     --color-background-4: #EEE1C9;
     --color-background-8: #F3B27A;
@@ -46,13 +46,74 @@
     align-items: center;
     width: 107px;
     height: 107px;
-    background-color: var(--square-background-color);
-    border: 7.5px solid var(--square-border-color);
-}
-
-.grid-square__number {
     font-size: 3rem;
     color: var(--number-dark-color);
     font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
     font-weight: 700;
+    background-color: var(--square-background-color);
+    border: 7.5px solid var(--square-border-color);
+}
+
+.number-0 {
+    color: transparent;
+}
+
+.number-2 {
+    background-color:var(--color-background-2);
+    -webkit-touch-callout: none;  /* iPhone OS, Safari */
+    -webkit-user-select: none;    /* Chrome, Safari 3 */
+    -khtml-user-select: none;     /* Safari 2 */
+    -moz-user-select: none;       /* Firefox */
+    -ms-user-select: none;        /* IE10+ */
+    user-select: none;            /* Possível implementação no futuro */
+    /* cursor: default; */
+}
+
+.number-4 {
+    background-color:var(--color-background-4);
+}
+
+.number-8 {
+    background-color:var(--color-background-8);
+    color: var(--number-light-color);
+}
+
+.number-16 {
+    background-color:var(--color-background-16);
+    color: var(--number-light-color);
+}
+
+.number-32 {
+    background-color:var(--color-background-32);
+    color: var(--number-light-color);
+}
+
+.number-64 {
+    background-color:var(--color-background-64);
+    color: var(--number-light-color);
+}
+
+.number-128 {
+    background-color:var(--color-background-128);
+    color: var(--number-light-color);
+}
+
+.number-256 {
+    background-color:var(--color-background-256);
+    color: var(--number-light-color);
+}
+
+.number-512 {
+    background-color:var(--color-background-512);
+    color: var(--number-light-color);
+}
+
+.number-1024 {
+    background-color:var(--color-background-1024);
+    color: var(--number-light-color);
+}
+
+.number-2048 {
+    background-color:var(--color-background-2048);
+    color: var(--number-light-color);
 }
