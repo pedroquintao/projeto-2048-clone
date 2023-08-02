@@ -13,10 +13,12 @@ function isGridAlteration (initialGrid, finalGrid) {
 } 
 
 const isGameOverTest = (grid) => {
-  const possibleMoviments = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"]
   let isGameOver = false;
-  possibleMoviments.forEach(e => {
-    isGameOver = !isGridAlteration(grid, pressButton(grid, e)) && isNonZeroGrid(grid)
+  const initialGrid = grid.map(e => [...e]);
+  debugger
+  constructor.possibleMoviments.forEach(e => {
+    isGameOver = !isGridAlteration(initialGrid, pressButton(initialGrid, e)) && isNonZeroGrid(initialGrid)
+  debugger
   })
 
   return isGameOver
@@ -43,11 +45,10 @@ function pressButton(grid, move) {
     
     if(isGridAlteration(initialGrid, grid)) {
       constructor.createNewRandomPositionElement(grid)
-      constructor.showGrid(grid)
+      // constructor.showGrid(grid)
     }
     
   };
-  
   return grid;
 }
 

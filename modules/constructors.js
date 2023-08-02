@@ -4,6 +4,7 @@ const HTML_GRID = document.querySelector(".grid");
 const ROW_NUMBER = 4;
 const COLUMN_NUMBER = 4;
 const INITIAL_RANDOM_NUMBERS = 2;
+const possibleMoviments = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"];
 
 var arrayGrid = createInitialGrid(ROW_NUMBER, COLUMN_NUMBER)
 
@@ -69,8 +70,11 @@ function createNewRandomPositionElement(grid) {
 }
 
 document.addEventListener('keydown', (event) => {
-  arrayGrid = controller.pressButton(arrayGrid, event.key)
-  // console.log('%cconstructors.js line:73 controller.isGameOverTest(arrayGrid)', 'color: #007acc;', controller.isGameOverTest(arrayGrid));
+  if(possibleMoviments.includes(event.key)){
+       arrayGrid = controller.pressButton(arrayGrid, event.key)
+       showGrid(arrayGrid)
+       console.log('%cconstructors.js line:73 controller.isGameOverTest(arrayGrid)', 'color: #007acc;', controller.isGameOverTest(arrayGrid));
+     }
 })
 
 export const constructor = {
@@ -78,6 +82,7 @@ export const constructor = {
   ROW_NUMBER,
   COLUMN_NUMBER,
   arrayGrid,
+  possibleMoviments,
   createInitialGrid,
   showGrid,
   createNewRandomPositionElement
