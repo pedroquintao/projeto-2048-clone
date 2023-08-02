@@ -1,34 +1,53 @@
 import { constructor } from "./constructors.js";
 
-function isGameOver(grid) {
-    const nonZeroElements = [].concat(...grid).filter(e => e !== 0).length;
+function isNonZeroGrid(grid) {
+  const gridConcatened = [].concat(...grid)  
+  const nonZeroElements = gridConcatened.filter(e => e !== 0).length;
 
     return nonZeroElements < 16? false : true;
 }
 
-function pressButton(grid, move) { //Será substituído futuramente por um "pressionar tecla seta para direita"
+function isGridAlteration (initialGrid, finalGrid) {
+  const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...finalGrid)[i]).length
+  return notEqualElements > 0? true : false
+} 
 
-  if(!isGameOver(grid)) {
+const isGameOverTest = (grid) => {
+  const possibleMoviments = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"]
+  let isGameOver = false;
+  possibleMoviments.forEach(e => {
+    isGameOver = !isGridAlteration(grid, pressButton(grid, e)) && isNonZeroGrid(grid)
+  })
+
+  return isGameOver
+}
+function pressButton(grid, move) {
+
+  if(!isNonZeroGrid(grid)) {
     
     const initialGrid = grid.map(e => [...e]);
+
     switch(move){
       case "ArrowRight":
       case "ArrowLeft":
+        
         grid.map(e => moveGrid(e, move))
         break
 
       case "ArrowUp":
       case "ArrowDown":
+
         grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, move)))
         break
     }
-
-    const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-    if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
-
-    constructor.showGrid(grid)
+    
+    if(isGridAlteration(initialGrid, grid)) {
+      constructor.createNewRandomPositionElement(grid)
+      constructor.showGrid(grid)
+    }
+    
   };
-
+  
   return grid;
 }
 
@@ -84,7 +103,8 @@ function rotateGridCounterClockwise(grid) {
   return gridSpinedCounterClockwise
 }
   export const controller = {
-    isGameOver,
+    isNonZeroGrid,
+    isGameOverTest,
     pressButton,
     moveGrid
 }

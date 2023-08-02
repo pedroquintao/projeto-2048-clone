@@ -11,7 +11,7 @@
     --color-background-64: #F75F3B;
     --color-background-128: #EDD073;
     --color-background-256: #EDCC62;
-    --color-background-512: ;
+    --color-background-512: #EDC950;
     --color-background-1024: ;
     --color-background-2048: ;
 
@@ -52,6 +52,7 @@
     font-weight: 700;
     background-color: var(--square-background-color);
     border: 7.5px solid var(--square-border-color);
+    user-select: none;
 }
 
 .number-0 {

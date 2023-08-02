@@ -49,25 +49,28 @@ function showGrid(grid) {
     return gridRow;
 
     });
-    console.log('%cconstructors.js row:52 newGrid', 'color: #007acc;', newGrid);
+
     parentElement.innerHTML = "";
     newGrid.forEach(e => {parentElement.appendChild(e)})
   }
 
+  
+
   buildGrid(HTML_GRID, grid)
-  // controller.isGameOver(grid)? buildGameOverHTML(HTML_GRID, gameOverText) : HTML_GRID.innerHTML = grid.join('<br>')
 }
 
 function createNewRandomPositionElement(grid) {
   const rowIndex = Math.floor(Math.random() * ROW_NUMBER);
   const columnIndex = Math.floor(Math.random() * COLUMN_NUMBER);
   
-  if(!controller.isGameOver(grid)) {
+  if(!controller.isNonZeroGrid(grid)) {
     grid[rowIndex][columnIndex] === 0? grid[rowIndex][columnIndex] = 2 : createNewRandomPositionElement(grid);
   }
 }
+
 document.addEventListener('keydown', (event) => {
   arrayGrid = controller.pressButton(arrayGrid, event.key)
+  // console.log('%cconstructors.js line:73 controller.isGameOverTest(arrayGrid)', 'color: #007acc;', controller.isGameOverTest(arrayGrid));
 })
 
 export const constructor = {
