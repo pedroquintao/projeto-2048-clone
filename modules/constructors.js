@@ -18,7 +18,7 @@ function createInitialGrid(row, column) {
   for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
     createNewRandomPositionElement(newGrid);
   }
-  // newGrid = [[1,2,3,4],[10,3,6,7],[8,9,10,11],[12,13,14,15]]
+  newGrid = [[1,2,3,4],[10,3,6,7],[8,9,10,11],[12,13,14,15]]
   return newGrid
 }
 
@@ -33,7 +33,10 @@ function showGrid(grid) {
   // }
 
   const buildGrid = (parentElement, gridInput) => {
-
+    const gameOverText = document.createElement("p")
+    gameOverText.innerHTML = "Game Over!"
+    controller.isGameOverTest(gridInput)? gameOverText.className = "game-over-text show" : gameOverText.className = "game-over-text hide"
+    console.log('%cconstructors.js line:48 gameOverText.className', 'color: #007acc;', gameOverText.className);
     const newGrid = gridInput.map(elt => {
     
     const gridRow = document.createElement("div")
@@ -43,8 +46,11 @@ function showGrid(grid) {
 
       const gridSquare = document.createElement("p")
       gridSquare.classList = `grid-square number-${e}`
-      e === 0? null : gridSquare.innerHTML = `${e}`
-      return gridRow.appendChild(gridSquare)
+      gridSquare.innerHTML = `${e}`
+      
+      gridRow.appendChild(gridSquare)
+      parentElement.parentNode.appendChild(gameOverText)
+      return gridRow
     })
     
     return gridRow;
@@ -54,8 +60,6 @@ function showGrid(grid) {
     parentElement.innerHTML = "";
     newGrid.forEach(e => {parentElement.appendChild(e)})
   }
-
-  
 
   buildGrid(HTML_GRID, grid)
 }
@@ -72,8 +76,6 @@ function createNewRandomPositionElement(grid) {
 document.addEventListener('keydown', (event) => {
   if(possibleMoviments.includes(event.key)){
        arrayGrid = controller.pressButton(arrayGrid, event.key)
-       showGrid(arrayGrid)
-       console.log('%cconstructors.js line:73 controller.isGameOverTest(arrayGrid)', 'color: #007acc;', controller.isGameOverTest(arrayGrid));
      }
 })
 

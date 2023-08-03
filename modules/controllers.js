@@ -68,7 +68,10 @@ function pressButton(grid, move) {
       isGridAlteration(initialGrid, grid)? constructor.createNewRandomPositionElement(grid) : null
       constructor.showGrid(grid)
     }
-    
+
+  else {
+    constructor.HTML_GRID.innerHTML += "<p>Game Over!</p>"
+  }
   return grid;
 };
 
