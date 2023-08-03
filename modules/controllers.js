@@ -1,39 +1,79 @@
 import { constructor } from "./constructors.js";
 
-function isGameOver(grid) {
-    const nonZeroElements = [].concat(...grid).filter(e => e !== 0).length;
+// function isNonZeroGrid(grid) {
+//   const gridConcatened = [].concat(...grid)  
+//   const nonZeroElements = gridConcatened.filter(e => e !== 0).length;
 
-    return nonZeroElements < 16? false : true;
+//     return nonZeroElements < 16? false : true;
+// }
+
+function isGridAlteration (initialGrid, finalGrid) {
+  const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...finalGrid)[i]).length
+  return notEqualElements > 0? true : false
+} 
+
+const isGameOverTest = (grid) => {
+  const inicialGrid = grid.map(e => [...e])
+  const rightMoveGrid = grid.map(e => [...e])
+  const leftMoveGrid = grid.map(e => [...e])
+  const upMoveGrid = grid.map(e => [...e])
+  const downMoveGrid = grid.map(e => [...e])
+
+  let testArray = [rightMoveGrid, leftMoveGrid, upMoveGrid, downMoveGrid]
+  testArray = testArray.map((elt, i) => {
+    const currentMoviment = constructor.possibleMoviments[i]
+    
+    switch(currentMoviment){
+      case "ArrowRight":
+      case "ArrowLeft":
+        
+        elt = elt.map(elt => moveGrid(elt, currentMoviment))
+        break
+
+      case "ArrowUp":
+      case "ArrowDown":
+
+        elt = elt = rotateGridCounterClockwise(rotateGridClockwise(elt).map(el => moveGrid(el, currentMoviment))) 
+        break
+    }
+
+    return !isGridAlteration(inicialGrid, elt)
+  })
+
+  const test = testArray.every(e => e === true)
+
+  return testArray.every(e => e === true)
 }
 
-function pressButton(grid, move) { //Será substituído futuramente por um "pressionar tecla seta para direita"
+function pressButton(grid, move) {
 
-  if(!isGameOver(grid)) {
+  if(!isGameOverTest(grid)) {
     
     const initialGrid = grid.map(e => [...e]);
+
     switch(move){
       case "ArrowRight":
       case "ArrowLeft":
+        
         grid.map(e => moveGrid(e, move))
         break
 
       case "ArrowUp":
       case "ArrowDown":
+
         grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, move)))
         break
     }
 
-    const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...grid)[i]).length
-    if(notEqualElements > 0) {constructor.createNewRandomPositionElement(grid)}
-
-    constructor.showGrid(grid)
-  };
-
+      isGridAlteration(initialGrid, grid)? constructor.createNewRandomPositionElement(grid) : null
+      constructor.showGrid(grid)
+    }
+    
   return grid;
-}
+};
 
 function moveGrid(arr, move) {
-
+  
   let arrFiltred = arr.filter(e => e !== 0)
   arr = arr.fill(0)
 
@@ -83,8 +123,9 @@ function rotateGridCounterClockwise(grid) {
 
   return gridSpinedCounterClockwise
 }
+
   export const controller = {
-    isGameOver,
+    isGameOverTest,
     pressButton,
     moveGrid
 }

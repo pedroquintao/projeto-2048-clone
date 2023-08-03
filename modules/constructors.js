@@ -4,6 +4,7 @@ const HTML_GRID = document.querySelector(".grid");
 const ROW_NUMBER = 4;
 const COLUMN_NUMBER = 4;
 const INITIAL_RANDOM_NUMBERS = 2;
+const possibleMoviments = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"];
 
 var arrayGrid = createInitialGrid(ROW_NUMBER, COLUMN_NUMBER)
 
@@ -17,7 +18,7 @@ function createInitialGrid(row, column) {
   for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
     createNewRandomPositionElement(newGrid);
   }
-  // newGrid = [[1,2,3,4],[0,5,6,7],[8,9,10,11],[12,13,14,15]]
+  // newGrid = [[1,2,3,4],[10,3,6,7],[8,9,10,11],[12,13,14,15]]
   return newGrid
 }
 
@@ -49,25 +50,31 @@ function showGrid(grid) {
     return gridRow;
 
     });
-    console.log('%cconstructors.js row:52 newGrid', 'color: #007acc;', newGrid);
+
     parentElement.innerHTML = "";
     newGrid.forEach(e => {parentElement.appendChild(e)})
   }
 
+  
+
   buildGrid(HTML_GRID, grid)
-  // controller.isGameOver(grid)? buildGameOverHTML(HTML_GRID, gameOverText) : HTML_GRID.innerHTML = grid.join('<br>')
 }
 
 function createNewRandomPositionElement(grid) {
   const rowIndex = Math.floor(Math.random() * ROW_NUMBER);
   const columnIndex = Math.floor(Math.random() * COLUMN_NUMBER);
   
-  if(!controller.isGameOver(grid)) {
+  // if(!controller.isNonZeroGrid(grid)) {
     grid[rowIndex][columnIndex] === 0? grid[rowIndex][columnIndex] = 2 : createNewRandomPositionElement(grid);
-  }
+  // }
 }
+
 document.addEventListener('keydown', (event) => {
-  arrayGrid = controller.pressButton(arrayGrid, event.key)
+  if(possibleMoviments.includes(event.key)){
+       arrayGrid = controller.pressButton(arrayGrid, event.key)
+       showGrid(arrayGrid)
+       console.log('%cconstructors.js line:73 controller.isGameOverTest(arrayGrid)', 'color: #007acc;', controller.isGameOverTest(arrayGrid));
+     }
 })
 
 export const constructor = {
@@ -75,6 +82,7 @@ export const constructor = {
   ROW_NUMBER,
   COLUMN_NUMBER,
   arrayGrid,
+  possibleMoviments,
   createInitialGrid,
   showGrid,
   createNewRandomPositionElement
