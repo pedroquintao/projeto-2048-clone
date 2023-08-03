@@ -18,7 +18,7 @@ function createInitialGrid(row, column) {
   for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
     createNewRandomPositionElement(newGrid);
   }
-  // newGrid = [[1,2,3,4],[0,5,6,7],[8,9,10,11],[12,13,14,15]]
+  // newGrid = [[1,2,3,4],[10,3,6,7],[8,9,10,11],[12,13,14,15]]
   return newGrid
 }
 
@@ -64,9 +64,9 @@ function createNewRandomPositionElement(grid) {
   const rowIndex = Math.floor(Math.random() * ROW_NUMBER);
   const columnIndex = Math.floor(Math.random() * COLUMN_NUMBER);
   
-  if(!controller.isNonZeroGrid(grid)) {
+  // if(!controller.isNonZeroGrid(grid)) {
     grid[rowIndex][columnIndex] === 0? grid[rowIndex][columnIndex] = 2 : createNewRandomPositionElement(grid);
-  }
+  // }
 }
 
 document.addEventListener('keydown', (event) => {

@@ -1,11 +1,11 @@
 import { constructor } from "./constructors.js";
 
-function isNonZeroGrid(grid) {
-  const gridConcatened = [].concat(...grid)  
-  const nonZeroElements = gridConcatened.filter(e => e !== 0).length;
+// function isNonZeroGrid(grid) {
+//   const gridConcatened = [].concat(...grid)  
+//   const nonZeroElements = gridConcatened.filter(e => e !== 0).length;
 
-    return nonZeroElements < 16? false : true;
-}
+//     return nonZeroElements < 16? false : true;
+// }
 
 function isGridAlteration (initialGrid, finalGrid) {
   const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...finalGrid)[i]).length
@@ -13,19 +13,41 @@ function isGridAlteration (initialGrid, finalGrid) {
 } 
 
 const isGameOverTest = (grid) => {
-  let isGameOver = false;
-  const initialGrid = grid.map(e => [...e]);
-  debugger
-  constructor.possibleMoviments.forEach(e => {
-    isGameOver = !isGridAlteration(initialGrid, pressButton(initialGrid, e)) && isNonZeroGrid(initialGrid)
-  debugger
+  const inicialGrid = grid.map(e => [...e])
+  const rightMoveGrid = grid.map(e => [...e])
+  const leftMoveGrid = grid.map(e => [...e])
+  const upMoveGrid = grid.map(e => [...e])
+  const downMoveGrid = grid.map(e => [...e])
+
+  let testArray = [rightMoveGrid, leftMoveGrid, upMoveGrid, downMoveGrid]
+  testArray = testArray.map((elt, i) => {
+    const currentMoviment = constructor.possibleMoviments[i]
+    
+    switch(currentMoviment){
+      case "ArrowRight":
+      case "ArrowLeft":
+        
+        elt = elt.map(elt => moveGrid(elt, currentMoviment))
+        break
+
+      case "ArrowUp":
+      case "ArrowDown":
+
+        elt = elt = rotateGridCounterClockwise(rotateGridClockwise(elt).map(el => moveGrid(el, currentMoviment))) 
+        break
+    }
+
+    return !isGridAlteration(inicialGrid, elt)
   })
 
-  return isGameOver
+  const test = testArray.every(e => e === true)
+
+  return testArray.every(e => e === true)
 }
+
 function pressButton(grid, move) {
 
-  if(!isNonZeroGrid(grid)) {
+  if(!isGameOverTest(grid)) {
     
     const initialGrid = grid.map(e => [...e]);
 
@@ -42,18 +64,16 @@ function pressButton(grid, move) {
         grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, move)))
         break
     }
-    
-    if(isGridAlteration(initialGrid, grid)) {
-      constructor.createNewRandomPositionElement(grid)
-      // constructor.showGrid(grid)
+
+      isGridAlteration(initialGrid, grid)? constructor.createNewRandomPositionElement(grid) : null
+      constructor.showGrid(grid)
     }
     
-  };
   return grid;
-}
+};
 
 function moveGrid(arr, move) {
-
+  
   let arrFiltred = arr.filter(e => e !== 0)
   arr = arr.fill(0)
 
@@ -103,8 +123,8 @@ function rotateGridCounterClockwise(grid) {
 
   return gridSpinedCounterClockwise
 }
+
   export const controller = {
-    isNonZeroGrid,
     isGameOverTest,
     pressButton,
     moveGrid
