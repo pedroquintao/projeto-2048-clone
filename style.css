@@ -29,10 +29,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 .grid {
-    border: 7.5px solid var(--square-border-color);
+    border: 7.5px solid var(--square-border-color);   
 }
 
 .grid-row {
