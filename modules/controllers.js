@@ -1,49 +1,48 @@
-import { constructor } from "./constructors.js";
-
-// function isNonZeroGrid(grid) {
-//   const gridConcatened = [].concat(...grid)  
-//   const nonZeroElements = gridConcatened.filter(e => e !== 0).length;
-
-//     return nonZeroElements < 16? false : true;
-// }
-
-function isGridAlteration (initialGrid, finalGrid) {
-  const notEqualElements = [].concat(...initialGrid).filter((e, i) => e !== [].concat(...finalGrid)[i]).length
-  return notEqualElements > 0? true : false
-} 
+import { builder } from "./builders.js";
 
 const isGameOverTest = (grid) => {
-  const inicialGrid = grid.map(e => [...e])
-  const rightMoveGrid = grid.map(e => [...e])
-  const leftMoveGrid = grid.map(e => [...e])
-  const upMoveGrid = grid.map(e => [...e])
-  const downMoveGrid = grid.map(e => [...e])
+  
+  const inicialGrid = grid.map(e => [...e]),
+        rightMoveGrid = grid.map(e => [...e]),
+        leftMoveGrid = grid.map(e => [...e]),
+        upMoveGrid = grid.map(e => [...e]),
+        downMoveGrid = grid.map(e => [...e]);
 
-  let testArray = [rightMoveGrid, leftMoveGrid, upMoveGrid, downMoveGrid]
+  let testArray = [rightMoveGrid, leftMoveGrid, upMoveGrid, downMoveGrid];
+
+
   testArray = testArray.map((elt, i) => {
-    const currentMoviment = constructor.possibleMoviments[i]
+
+    const currentMoviment = builder.possibleMoviments[i];
     
     switch(currentMoviment){
+
       case "ArrowRight":
       case "ArrowLeft":
         
-        elt = elt.map(elt => moveGrid(elt, currentMoviment))
-        break
+        elt = elt.map(elt => moveGrid(elt, currentMoviment));
+        break;
 
       case "ArrowUp":
       case "ArrowDown":
 
-        elt = elt = rotateGridCounterClockwise(rotateGridClockwise(elt).map(el => moveGrid(el, currentMoviment))) 
-        break
+        elt = elt = rotateGridCounterClockwise(rotateGridClockwise(elt).map(el => moveGrid(el, currentMoviment))); 
+        break;
     }
 
-    return !isGridAlteration(inicialGrid, elt)
+    return !isGridAlteration(inicialGrid, elt);
   })
 
-  const test = testArray.every(e => e === true)
-
-  return testArray.every(e => e === true)
+  return testArray.every(e => e === true);
 }
+
+function isGridAlteration (initialGrid, finalGrid) {
+
+  const concatenedInitialGrid = [].concat(...initialGrid),
+        concatenedFinalGrid = [].concat(...finalGrid);
+
+  return !concatenedInitialGrid.every((e, i) => e === concatenedFinalGrid[i]);
+} 
 
 function pressButton(grid, move) {
 
@@ -55,77 +54,81 @@ function pressButton(grid, move) {
       case "ArrowRight":
       case "ArrowLeft":
         
-        grid.map(e => moveGrid(e, move))
-        break
+        grid.map(e => moveGrid(e, move));
+        break;
 
       case "ArrowUp":
       case "ArrowDown":
 
-        grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, move)))
-        break
+        grid = rotateGridCounterClockwise(rotateGridClockwise(grid).map(e => moveGrid(e, move)));
+        break;
     }
 
-      isGridAlteration(initialGrid, grid)? constructor.createNewRandomPositionElement(grid) : null
-      constructor.showGrid(grid)
+      if(isGridAlteration(initialGrid, grid)) 
+        builder.createNewRandomPositionElement(grid);
+
+      builder.buildGridScreen(grid);
     }
 
   return grid;
 };
 
-function moveGrid(arr, move) {
+function moveGrid(row, move) {
   
-  let arrFiltred = arr.filter(e => e !== 0)
-  arr = arr.fill(0)
+  let filtredRow = row.filter(e => e !== 0);
+  row = row.fill(0);
 
   if(move === "ArrowRight" || move === "ArrowUp")
-    arrFiltred.reverse();
+    filtredRow.reverse();
 
-  arrFiltred.forEach((e, i) => {
+  filtredRow.forEach((e, i) => {
     
-    if(e === arrFiltred[i + 1]) {
-      arrFiltred[i] += arrFiltred[i + 1];
-      arrFiltred.splice(i + 1, 1)
+    if(e === filtredRow[i + 1]) {
+
+      filtredRow[i] += filtredRow[i + 1];
+      filtredRow.splice(i + 1, 1);
     }
   })
 
   switch(move){
     case "ArrowRight":
     case "ArrowUp":
-      arrFiltred.reverse().forEach((e, i) => arr.splice(arr.length - arrFiltred.length + i, 1, e))
-      break
+
+      filtredRow.reverse().forEach((e, i) => row.splice(row.length - filtredRow.length + i, 1, e));
+      break;
 
     case "ArrowLeft":
     case "ArrowDown":
-      arrFiltred.forEach((e, i) => arr.splice(i, 1, e))
-      break
+
+      filtredRow.forEach((e, i) => row.splice(i, 1, e));
+      break;
   }
 
-  return arr
+  return row;
 }
 
 function rotateGridClockwise(grid) {
-  let gridSpinedClockwise = new Array(grid.length).fill(new Array(grid[0].length))
 
-  for(let i = 0; i < grid.length; i++) {
-    gridSpinedClockwise[i] = gridSpinedClockwise.map((e, j) => grid[(gridSpinedClockwise.length - 1) - j][i])
-  }
+  let gridSpinedClockwise = new Array(grid.length).fill(new Array(grid[0].length));
 
-  return gridSpinedClockwise
+  for(let i = 0; i < grid.length; i++)
+    gridSpinedClockwise[i] = gridSpinedClockwise.map((e, j) => e = grid[(gridSpinedClockwise.length - 1) - j][i]);
+  
+  return gridSpinedClockwise;
 }
 
 function rotateGridCounterClockwise(grid) {
-  let gridSpinedCounterClockwise = new Array(grid.length).fill(new Array(grid[0].length))
 
-  for(let i = 0; i < grid.length; i++) {
-    gridSpinedCounterClockwise[i] = gridSpinedCounterClockwise.map((e, j) => grid[j][(grid.length - 1) - i])
-  }
+  let gridSpinedCounterClockwise = new Array(grid.length).fill(new Array(grid[0].length));
 
-
-  return gridSpinedCounterClockwise
+  for(let i = 0; i < grid.length; i++)
+    gridSpinedCounterClockwise[i] = gridSpinedCounterClockwise.map((e, j) => grid[j][(grid.length - 1) - i]);
+  
+  return gridSpinedCounterClockwise;
 }
 
   export const controller = {
     isGameOverTest,
     pressButton,
     moveGrid
-}
+};

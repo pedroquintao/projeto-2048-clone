@@ -1,6 +1,5 @@
-import { constructor } from "./modules/constructors.js";
-import { controller } from "./modules/controllers.js";
+import { builder } from "./modules/builders.js";
 
-constructor.showGrid(constructor.arrayGrid);
+builder.buildGridScreen(builder.arrayGrid);
 
 
