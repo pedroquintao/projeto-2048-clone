@@ -81,6 +81,8 @@
     padding: 10px 20px;
     font-size: 18px;
     font-weight: bold;
+    border-style: none;
+    cursor: pointer;
     background-color: rgb(143, 122, 102);
     border-radius: 4px;
     color: #f9f6f2;
