@@ -18,25 +18,18 @@ function createInitialGrid(row, column) {
   for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
     createNewRandomPositionElement(newGrid);
   }
-  newGrid = [[1,2,3,4],[10,3,6,7],[8,9,10,11],[12,13,14,15]]
+  // newGrid = [[1,2,3,4],[10,3,6,7],[8,9,10,11],[12,13,14,15]]
   return newGrid
 }
 
 function showGrid(grid) {
-  // const gameOverText = "Game Over!"
-  
-  // const buildGameOverHTML = (parentElement, text) => {
-  //   const node = document.createElement("p")
-  //   node.className = "game-over-text"
-  //   HTML_GRID.innerHTML = grid.join('<br>')
-  //   return parentElement.appendChild(node).innerHTML = text;
-  // }
 
   const buildGrid = (parentElement, gridInput) => {
-    const gameOverText = document.createElement("p")
-    gameOverText.innerHTML = "Game Over!"
-    controller.isGameOverTest(gridInput)? gameOverText.className = "game-over-text show" : gameOverText.className = "game-over-text hide"
-    console.log('%cconstructors.js line:48 gameOverText.className', 'color: #007acc;', gameOverText.className);
+    
+    parentElement.innerHTML = "";
+    controller.isGameOverTest(gridInput)? showGameOverScreen(HTML_GRID) : null
+    
+    console.log('%cconstructors.js line:48 gameOverScreen.className', 'color: #007acc;', HTML_GRID);
     const newGrid = gridInput.map(elt => {
     
     const gridRow = document.createElement("div")
@@ -49,7 +42,6 @@ function showGrid(grid) {
       gridSquare.innerHTML = `${e}`
       
       gridRow.appendChild(gridSquare)
-      parentElement.parentNode.appendChild(gameOverText)
       return gridRow
     })
     
@@ -57,11 +49,18 @@ function showGrid(grid) {
 
     });
 
-    parentElement.innerHTML = "";
     newGrid.forEach(e => {parentElement.appendChild(e)})
   }
 
   buildGrid(HTML_GRID, grid)
+}
+
+function showGameOverScreen(outerElement) {
+  const gameOverScreen = document.createElement("div")
+  gameOverScreen.className = "game-over-screen"
+  gameOverScreen.innerHTML = `<h1>Game Over!</h1>
+                              <button class="try-again-button">Try Again</button>`
+  outerElement.appendChild(gameOverScreen)
 }
 
 function createNewRandomPositionElement(grid) {
