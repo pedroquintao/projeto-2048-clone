@@ -69,9 +69,6 @@ function pressButton(grid, move) {
       constructor.showGrid(grid)
     }
 
-  else {
-    constructor.HTML_GRID.innerHTML += "<p>Game Over!</p>"
-  }
   return grid;
 };
 

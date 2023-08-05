@@ -18,15 +18,18 @@ function createInitialGrid(row, column) {
   for (const x of Array(INITIAL_RANDOM_NUMBERS)) {
     createNewRandomPositionElement(newGrid);
   }
-  newGrid = [[1,2,3,4],[10,3,6,7],[8,9,10,11],[12,13,14,15]]
+  // newGrid = [[1,2,3,4],[10,3,6,7],[8,9,10,11],[12,13,14,15]]
   return newGrid
 }
 
 function showGrid(grid) {
 
   const buildGrid = (parentElement, gridInput) => {
-    controller.isGameOverTest(gridInput)? showGameOverScreen(HTML_GRID.parentNode) : null
-    console.log('%cconstructors.js line:48 gameOverScreen.className', 'color: #007acc;', HTML_GRID.parentElement);
+    
+    parentElement.innerHTML = "";
+    controller.isGameOverTest(gridInput)? showGameOverScreen(HTML_GRID) : null
+    
+    console.log('%cconstructors.js line:48 gameOverScreen.className', 'color: #007acc;', HTML_GRID);
     const newGrid = gridInput.map(elt => {
     
     const gridRow = document.createElement("div")
@@ -46,7 +49,6 @@ function showGrid(grid) {
 
     });
 
-    parentElement.innerHTML = "";
     newGrid.forEach(e => {parentElement.appendChild(e)})
   }
 
@@ -55,8 +57,9 @@ function showGrid(grid) {
 
 function showGameOverScreen(outerElement) {
   const gameOverScreen = document.createElement("div")
-  gameOverScreen.innerHTML = `<p>Game Over!</p>
-                              <button>Try Again</button>`
+  gameOverScreen.className = "game-over-screen"
+  gameOverScreen.innerHTML = `<h1>Game Over!</h1>
+                              <button class="try-again-button">Try Again</button>`
   outerElement.appendChild(gameOverScreen)
 }
 
