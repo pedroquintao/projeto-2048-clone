@@ -1,10 +1,10 @@
 import { controller } from "./controllers.js";
 
-const HTML_GRID = document.querySelector(".grid");
-const ROW_NUMBER = 4;
-const COLUMN_NUMBER = 4;
-const INITIAL_RANDOM_NUMBERS = 2;
-const possibleMoviments = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"];
+const HTML_GRID = document.querySelector(".grid"), 
+      ROW_NUMBER = 4, 
+      COLUMN_NUMBER = 4, 
+      INITIAL_RANDOM_NUMBERS = 2, 
+      possibleMoviments = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"];
 
 var arrayGrid = createInitialGrid(ROW_NUMBER, COLUMN_NUMBER)
 
@@ -60,16 +60,20 @@ function showGameOverScreen(outerElement) {
   gameOverScreen.className = "game-over-screen"
   gameOverScreen.innerHTML = `<h1>Game Over!</h1>
                               <button class="try-again-button">Try Again</button>`
+
   outerElement.appendChild(gameOverScreen)
+
+  document.querySelector(".try-again-button").addEventListener('click', () => {
+    arrayGrid = createInitialGrid(ROW_NUMBER, COLUMN_NUMBER);
+    showGrid(arrayGrid)
+  })
 }
 
 function createNewRandomPositionElement(grid) {
   const rowIndex = Math.floor(Math.random() * ROW_NUMBER);
   const columnIndex = Math.floor(Math.random() * COLUMN_NUMBER);
   
-  // if(!controller.isNonZeroGrid(grid)) {
     grid[rowIndex][columnIndex] === 0? grid[rowIndex][columnIndex] = 2 : createNewRandomPositionElement(grid);
-  // }
 }
 
 document.addEventListener('keydown', (event) => {
@@ -77,6 +81,7 @@ document.addEventListener('keydown', (event) => {
        arrayGrid = controller.pressButton(arrayGrid, event.key)
      }
 })
+
 
 export const constructor = {
   HTML_GRID,
